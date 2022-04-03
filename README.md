@@ -1,12 +1,8 @@
-# Deploy simple machine learning models using Plotly Dash
-
-View the finished model:
-* Linear regression model using the Ames housing dataset [deployed on Heroku](https://hidden-beyond-34083.herokuapp.com).
-* Linear regression model in a [Spreadsheet](https://docs.google.com/spreadsheets/d/1q2ustRvY-GcmPO5NYudvsBEGNs5Na5p_8LMeS4oM35U/edit?usp=sharing) showing regression equation
+## View the finished model:
+* https://ames-housing-linear.herokuapp.com/ 
 
 ## Read this blog post
 * [How to deploy a Plotly Dash app on Heroku](https://austinlasseter.medium.com/deploy-a-plotly-dash-app-on-heroku-4d2c3224230)
-
 
 
 ### Additional Reading
