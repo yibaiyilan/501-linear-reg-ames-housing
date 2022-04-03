@@ -1,8 +1,8 @@
 import dash
 from dash import dcc,html
 from dash.dependencies import Input, Output, State
-import plotly.graph_objs as go
-import pickle
+
+
 
 ########### Define your variables ######
 myheading1='Predicting Home Sale Prices in Ames, Iowa'
@@ -11,10 +11,6 @@ tabtitle = 'Ames Housing'
 sourceurl = 'http://jse.amstat.org/v19n3/decock.pdf'
 githublink = 'https://github.com/austinlasseter/simple-ml-apps'
 
-########### open the pickle file ######
-# filename = open('analysis/ames_housing_lr_model.pkl', 'rb')
-# unpickled_model = pickle.load(filename)
-# filename.close()
 
 ########### Initiate the app
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -44,6 +40,14 @@ app.layout = html.Div(children=[
 
             ], className='four columns'),
             html.Div([
+                html.Button(children='Submit', id='submit-val', n_clicks=0,
+                                style={
+                                'background-color': 'red',
+                                'color': 'white',
+                                'margin-left': '5px',
+                                'verticalAlign': 'center',
+                                'horizontalAlign': 'center'}
+                                ),
                 html.H3('Predicted Home Value:'),
                 html.Div(id='Results')
             ], className='four columns')
@@ -67,23 +71,24 @@ app.layout = html.Div(children=[
 ######### Define Callback
 @app.callback(
     Output(component_id='Results', component_property='children'),
-    [
-    Input(component_id='YearBuilt', component_property='value'),
-    Input(component_id='Bathrooms', component_property='value'),
-    Input(component_id='BedroomAbvGr', component_property='value'),
-    Input(component_id='TotalSF', component_property='value'),
-    Input(component_id='SingleFam', component_property='value'),
-    Input(component_id='LargeNeighborhood', component_property='value')
-    ]
+    Input(component_id='submit-val', component_property='n_clicks'),
+    State(component_id='YearBuilt', component_property='value'),
+    State(component_id='Bathrooms', component_property='value'),
+    State(component_id='BedroomAbvGr', component_property='value'),
+    State(component_id='TotalSF', component_property='value'),
+    State(component_id='SingleFam', component_property='value'),
+    State(component_id='LargeNeighborhood', component_property='value')
+
 )
-def ames_lr_function(YearBuilt,Bathrooms,BedroomAbvGr,TotalSF,SingleFam,LargeNeighborhood):
-    try:
+def ames_lr_function(clicks, YearBuilt,Bathrooms,BedroomAbvGr,TotalSF,SingleFam,LargeNeighborhood):
+    if clicks==0:
+        return "waiting for inputs"
+    else:
         y = [-1360501.3809 + 704.4287*YearBuilt + 12738.4775*Bathrooms + -7783.1712*BedroomAbvGr + 49.824*TotalSF+ 25282.091*SingleFam+ -6637.2636*LargeNeighborhood]
-        # y = unpickled_model.predict([[YearBuilt,Bathrooms,BedroomAbvGr,TotalSF,SingleFam,LargeNeighborhood]])
         formatted_y = "${:,.2f}".format(y[0])
         return formatted_y
-    except:
-        return "inadequate inputs"
+
+
 
 ############ Deploy
 if __name__ == '__main__':
