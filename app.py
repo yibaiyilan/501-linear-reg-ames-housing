@@ -1,6 +1,5 @@
 import dash
 from dash import dcc,html
-import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 
 
@@ -14,8 +13,7 @@ githublink = 'https://github.com/plotly-dash-apps/501-linear-reg-ames-housing'
 
 
 ########### Initiate the app
-external_stylesheets=[dbc.themes.BOOTSTRAP]
-# The full list of available themes is CERULEAN, COSMO, CYBORG, DARKLY, FLATLY, JOURNAL, LITERA, LUMEN, LUX, MATERIA, MINTY, MORPH, PULSE, QUARTZ, SANDSTONE, SIMPLEX, SKETCHY, SLATE, SOLAR, SPACELAB, SUPERHERO, UNITED, VAPOR, YETI, ZEPHYR
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 app.title=tabtitle
@@ -23,40 +21,38 @@ app.title=tabtitle
 ########### Set up the layout
 app.layout = html.Div(children=[
     html.H1(myheading1),
-    dbc.Row(
+    html.Div([
+        html.Img(src=app.get_asset_url(image1), style={'width': '30%', 'height': 'auto'}, className='four columns'),
         html.Div([
-            dbc.Col(html.Img(src=app.get_asset_url(image1), style={'width': '30%', 'height': 'auto'}), md=4),
-            dbc.Col(html.Div([
-                    html.H3('Features of Home:'),
-                    html.Div('Year Built:'),
-                    dcc.Input(id='YearBuilt', value=2010, type='number', min=2006, max=2010, step=1),
-                    html.Div('Bathrooms:'),
-                    dcc.Input(id='Bathrooms', value=2, type='number', min=1, max=5, step=1),
-                    html.Div('Bedrooms:'),
-                    dcc.Input(id='BedroomAbvGr', value=4, type='number', min=1, max=5, step=1),
-                    html.Div('Total Square Feet:'),
-                    dcc.Input(id='TotalSF', value=2000, type='number', min=100, max=5000, step=1),
-                    html.Div('Single Family Home:'),
-                    dcc.Input(id='SingleFam', value=0, type='number', min=0, max=1, step=1),
-                    html.Div('Large Neighborhood:'),
-                    dcc.Input(id='LargeNeighborhood', value=0, type='number', min=0, max=1, step=1),
+                html.H3('Features of Home:'),
+                html.Div('Year Built:'),
+                dcc.Input(id='YearBuilt', value=2010, type='number', min=2006, max=2010, step=1),
+                html.Div('Bathrooms:'),
+                dcc.Input(id='Bathrooms', value=2, type='number', min=1, max=5, step=1),
+                html.Div('Bedrooms:'),
+                dcc.Input(id='BedroomAbvGr', value=4, type='number', min=1, max=5, step=1),
+                html.Div('Total Square Feet:'),
+                dcc.Input(id='TotalSF', value=2000, type='number', min=100, max=5000, step=1),
+                html.Div('Single Family Home:'),
+                dcc.Input(id='SingleFam', value=0, type='number', min=0, max=1, step=1),
+                html.Div('Large Neighborhood:'),
+                dcc.Input(id='LargeNeighborhood', value=0, type='number', min=0, max=1, step=1),
 
-                ]), md=4),
-
-                dbc.Col(html.Div([
-                    html.Button(children='Submit', id='submit-val', n_clicks=0,
-                                    style={
-                                    'background-color': 'red',
-                                    'color': 'white',
-                                    'margin-left': '5px',
-                                    'verticalAlign': 'center',
-                                    'horizontalAlign': 'center'}
-                                    ),
-                    html.H3('Predicted Home Value:'),
-                    html.Div(id='Results')
-                ]), md=4),
-            ],
-        )),
+            ], className='four columns'),
+            html.Div([
+                html.Button(children='Submit', id='submit-val', n_clicks=0,
+                                style={
+                                'background-color': 'red',
+                                'color': 'white',
+                                'margin-left': '5px',
+                                'verticalAlign': 'center',
+                                'horizontalAlign': 'center'}
+                                ),
+                html.H3('Predicted Home Value:'),
+                html.Div(id='Results')
+            ], className='four columns')
+        ], className='twelve columns',
+    ),
     html.Br(),
     html.Br(),
     html.Br(),
