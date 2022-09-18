@@ -38,7 +38,7 @@ app.layout = html.Div(children=[
                 html.Div('Large Neighborhood:'),
                 dcc.Input(id='LargeNeighborhood', value=0, type='number', min=0, max=1, step=1),
                 html.Div('Year Sold:'),
-                dcc.Input(id='YrSold', value=1, type='number', min=2006, max=2010, step=1)
+                dcc.Input(id='YrSold', value=2006, type='number', min=2006, max=2010, step=1)
 
             ], className='four columns'),
             html.Div([
